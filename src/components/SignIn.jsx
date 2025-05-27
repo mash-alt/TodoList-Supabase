@@ -12,6 +12,40 @@ const SignIn = () => {
   
   const navigate = useNavigate()
 
+  const handleOAuthSignUp = async (provider) => {
+    setLoading(true)
+    setError(null)
+    setMessage(null)
+    
+    try {
+      console.log(`Attempting to sign up with ${provider}...`)
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/`,
+          queryParams: {
+             access_type: 'offline',
+             prompt: 'consent',
+          },
+        },
+      })
+      
+      if (error) {
+        console.error(`OAuth error with ${provider}:`, error)
+        throw error
+      }
+      
+      console.log(`${provider} OAuth initiated, redirecting...`, data)
+      // Supabase handles the redirect and callback
+    } catch (error) {
+      console.error(`Error during ${provider} OAuth:`, error)
+      setError(`Failed to sign up with ${provider}: ${error.message}`)
+      setLoading(false)
+    }
+    // Note: setLoading(false) is not called on success because the page will redirect
+  }
+
   const handleSignUp = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -92,6 +126,26 @@ const SignIn = () => {
           {loading ? 'Signing Up...' : 'Sign Up'}
         </button>
       </form>
+      
+      <div className="oauth-separator">
+        <span>Or sign up with</span>
+      </div>
+      <button 
+        type="button" 
+        onClick={() => handleOAuthSignUp('google')} 
+        disabled={loading} 
+        className="oauth-button google-button"
+      >
+        {loading ? 'Loading...' : 'Sign up with Google'}
+      </button>
+      <button 
+        type="button" 
+        onClick={() => handleOAuthSignUp('facebook')} 
+        disabled={loading} 
+        className="oauth-button facebook-button"
+      >
+        {loading ? 'Loading...' : 'Sign up with Facebook'}
+      </button>
       
       <p className="login-link">
         Already have an account? <a href="/login">Login</a>

@@ -45,8 +45,8 @@ const Login = () => {
           queryParams: {
             // You can add provider-specific parameters here if needed
             // For example, for Google:
-            // access_type: 'offline', // Gets refresh token
-            // prompt: 'consent',
+            access_type: 'offline', // Gets refresh token
+            prompt: 'consent',
           },
         },
       })
