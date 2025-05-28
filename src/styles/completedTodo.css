@@ -1,0 +1,44 @@
+/* CSS for completed todo items */
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out;
+  border-bottom: 1px solid transparent;
+}
+
+.todo-checkbox {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.todo-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  accent-color: #2ecc71;
+  transition: all 0.2s ease;
+}
+
+.todo-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Styling for completed todos */
+li.completed {
+  opacity: 0.8;
+  background-color: #f5f5f5;
+}
+
+.completed-text {
+  text-decoration: line-through;
+  color: #777;
+}

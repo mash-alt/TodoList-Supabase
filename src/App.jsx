@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import './styles/App.css'
 import supabase from './supabaseClient.js'
-import Home from './components/Home.jsx'
-import Login from './components/Login.jsx'
-import SignIn from './components/SignIn.jsx'
+import Home from '../pages/Home.jsx'
+import Login from '../pages/Login.jsx'
+import SignIn from '../pages/SignIn.jsx'
 import Navbar from './components/Navbar.jsx'
+import { ToastProvider } from './components/ToastContainer.jsx'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -36,23 +37,25 @@ function App() {
   }
 
   return (
-    <Router>
-      <Navbar session={session} />
-      <div className="container">
-        <Routes>
-          <Route 
-            path="/" 
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignIn />} />
-        </Routes>
-      </div>
-    </Router>
+    <ToastProvider>
+      <Router>
+        <Navbar session={session} />
+        <div className="container">
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignIn />} />
+          </Routes>
+        </div>
+      </Router>
+    </ToastProvider>
   )
 }
 

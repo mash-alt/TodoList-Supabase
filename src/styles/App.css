@@ -1,4 +1,5 @@
 /* filepath: c:\Users\yeems214\Documents\supabase-project\src\App.css */
+@import url('./completedTodo.css');
 
 /* Global Resets and Base Styles */
 * {
@@ -192,6 +193,23 @@ h1 {
   background-color: #2980b9;
 }
 
+.add-category-button {
+  display: block;
+  margin: 0 0 20px auto;
+  padding: 8px 16px;
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-category-button:hover {
+  background-color: #8e44ad;
+}
+
 .todos-list ul {
   list-style-type: none;
   padding: 0;
@@ -228,6 +246,33 @@ h1 {
   background-color: transparent; /* Make header transparent, li has background */
   transition: background-color 0.2s ease-in-out;
   border-bottom: 1px solid transparent; /* Prepare for border on expanded */
+}
+
+.todo-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.todo-category-badge {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.todo-category {
+  margin: 0 0 10px;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.todo-category strong {
+  color: #2c3e50;
 }
 
 .todos-list li.expanded .todo-header {
@@ -487,6 +532,86 @@ h1 {
 }
 
 /* Loading State */
+.loading-state {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 20px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  min-width: 250px;
+  max-width: 350px;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.toast-success {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  color: #155724;
+}
+
+.toast-error {
+  background-color: #f8d7da;
+  border-left: 4px solid #dc3545;
+  color: #721c24;
+}
+
+.toast-info {
+  background-color: #d1ecf1;
+  border-left: 4px solid #17a2b8;
+  color: #0c5460;
+}
+
+.toast-warning {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  color: #856404;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast p {
+  margin: 0;
+}
+
 .loading-text { /* Example for loading text, adjust as needed */
   font-style: italic;
   color: #7f8c8d;
@@ -572,6 +697,24 @@ h1 {
   outline: none;
 }
 
+.dialog .form-group select {
+  width: 100%;
+  padding: 12px 15px; /* Adjusted padding */
+  border: 1px solid #e2e8f0; /* Lighter border */
+  border-radius: 6px; /* Slightly more rounded */
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #f7fafc; /* Subtle background for inputs */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.dialog .form-group select:focus {
+  border-color: #3182ce; /* Accent color on focus */
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3); /* Modern focus ring */
+  outline: none;
+}
+
 .dialog .form-group textarea {
   resize: vertical;
   min-height: 100px; /* Increased min-height */
@@ -616,6 +759,86 @@ h1 {
 .add-button:hover {
   background-color: #2b6cb0; /* Darker shade on hover */
 }
+
+/* Category Filter Bar Styles */
+.category-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  overflow-x: auto; /* For smaller screens if categories overflow */
+}
+
+.category-filter-button {
+  padding: 8px 16px;
+  border: 1px solid #dee2e6;
+  border-radius: 20px; /* Pill shape */
+  background-color: #ffffff;
+  color: #495057;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.category-filter-button:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.category-filter-button.active {
+  background-color: #007bff; /* Bootstrap primary blue, or your preferred accent */
+  color: white;
+  border-color: #007bff;
+}
+
+.add-category-filter-button {
+  padding: 0; /* Reset padding */
+  width: 36px; /* Fixed width for a circle */
+  height: 36px; /* Fixed height for a circle */
+  border-radius: 50%; /* Circular shape */
+  background-color: #28a745; /* Green color, or your preferred accent */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* Larger plus icon */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  flex-shrink: 0; /* Prevent shrinking if categories take up space */
+  line-height: 1; /* Ensure plus is centered vertically */
+}
+
+.add-category-filter-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.add-category-filter-button:active {
+  transform: translateY(1px);
+}
+
+/* Ensure the filter bar itself is scrollable on small screens if needed */
+@media (max-width: 768px) {
+  .category-filter-bar {
+    padding: 8px;
+  }
+  .category-filter-button {
+    font-size: 0.85rem;
+    padding: 7px 14px;
+  }
+  .add-category-filter-button {
+    width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
+  }
+}
+
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
